@@ -217,7 +217,7 @@ def gather_sample_files(sample_names, denovo_mode, prokka_mode):
                 pass
             else:
                 final_files[name] = 'None'
-                sys.err.write(
+                sys.stderr.write(
                     'Missing {0} required for report for: {1}'.format(
                         name, sample_name))
         sample_files[sample_name] = final_files
@@ -226,10 +226,7 @@ def gather_sample_files(sample_names, denovo_mode, prokka_mode):
 
 def main(args):
     """Run entry point."""
-    report_doc = report.HTMLReport(
-        "Bacterial Genomes Summary Report",
-        ("Results generated through the wf-bacterial-genomes Nextflow "
-            "workflow provided by Oxford Nanopore Technologies"))
+    report_doc = report.HTMLReport("Summary Report")
     quant_stats = get_quant_stats(
         sample_names=args.sample_ids,
         read_stats_dir="stats",
@@ -265,23 +262,20 @@ def main(args):
 
     section.table(stats_table, index=True)
     section = report_doc.add_section()
-    section.markdown("#### Species ID")
+    #section.markdown("#### Species ID")
 
-    section.markdown(
-        "This section displays the Species ID as determined by 16S."
-        " The table shows the percentage match of the 16S sequence"
-        " to the best match of  the SILVA 16S database.")
+    #section.markdown(
+        #"This section displays the Species ID as determined by 16S."
+        #" The table shows the percentage match of the 16S sequence"
+        #" to the best match of  the SILVA 16S database.")
 
-    species_stats = run_species_stats(
-        species_stats_path="quast_stats/quast_downloaded_references",
-        sample_names=args.sample_ids)
-    section.table(species_stats, index=True)
+    #species_stats = run_species_stats(
+        #species_stats_path="quast_stats/quast_downloaded_references",
+        #sample_names=args.sample_ids)
+    #section.table(species_stats, index=True)
     section.markdown('<br/>')
 
-    sample_files = gather_sample_files(
-        args.sample_ids,
-        args.denovo,
-        args.prokka)
+    sample_files = gather_sample_files(args.sample_ids,args.denovo,args.prokka)
 
     for name, files in sample_files.items():
         section = report_doc.add_section()

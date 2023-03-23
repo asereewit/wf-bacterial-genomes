@@ -1,7 +1,12 @@
+Modified to work with viral genomes
+- disable species ID section output in markdown report file (because genomes QUAST to bacterial SILVA 16s database)
+- output .reads2ref.bam
+
 # Bacterial genomes Workflow
 
-This repository contains a [nextflow](https://www.nextflow.io/) workflow 
-for analysing bacterial genomes. # Introduction
+## Introduction
+This repository contains a [nextflow](https://www.nextflow.io/) workflow
+for analysing bacterial genomes.
 
 If no reference is included assembly will be 
 completed using [flye](https://github.com/fenderglass/Flye) and polished with 

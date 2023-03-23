@@ -186,7 +186,7 @@ process assemblyStats {
          path(sample_assembly)
 
     output:
-        tuple path("quast_output/combined_reference/transposed_report.tsv"), path("quast_output/quast_downloaded_references/")
+        tuple path("quast_output/transposed_report.tsv"), path("quast_output/quast_downloaded_references/")
 
     """
     metaquast.py -o quast_output -t $task.cpus ${sample_assembly}
@@ -466,6 +466,7 @@ workflow calling_pipeline {
         telemetry = workflow_params
         all_out = variants.concat(
             vcf_variant,
+            alignments.map {it -> it[1]},
             consensus.map {it -> it[1]},
             report,
             prokka)
